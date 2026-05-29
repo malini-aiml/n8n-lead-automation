@@ -1,0 +1,154 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "aaeb430b-e87d-4172-b726-15c88e1e3eb3",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6375e96c-6eca-41bf-9b4d-9824e2301b5c",
+      "name": "Webhook",
+      "webhookId": "aaeb430b-e87d-4172-b726-15c88e1e3eb3"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1dlzCU8fuAHpuSJckbd1rcPKpVR-mMEfzOW0ww-LQL0s",
+          "mode": "list",
+          "cachedResultName": "Earthonoid AI Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dlzCU8fuAHpuSJckbd1rcPKpVR-mMEfzOW0ww-LQL0s/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dlzCU8fuAHpuSJckbd1rcPKpVR-mMEfzOW0ww-LQL0s/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.query.Name }}",
+            "Email": "={{ $json.query.Email }}",
+            "message": "={{ $json.query.Message }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "message",
+              "displayName": "message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "13460112-749a-4ac6-85b7-04d20182c956",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "skIkubgbPuoyyFk0",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Email }}",
+        "subject": "Thank you for your inquiry!",
+        "message": "hi malini, we have successfully added your lead to the sheet.Thank you!",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "85d910b4-a7c9-4883-b32b-30bfbce9a346",
+      "name": "Send a message",
+      "webhookId": "bdaf7eca-64ab-4c64-8622-fce66fabf5cf",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "l8PgLbSbikCXXtzz",
+          "name": "Gmail OAuth2 API"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "24e4f951-6f8c-4fdf-8060-b21958165fce",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e46109a40c27ad9d8cfd64291b93186aa5f45b1a2b15c4cdfa02ba7ba305c1de"
+  },
+  "id": "zxzYSYgDhegXqDz9",
+  "tags": []
+}
